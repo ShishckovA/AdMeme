@@ -12,8 +12,9 @@
     "js": ["onpageload.js"]
   }
   ],
+  
   "background": {
-    "js": ["onpageload.js"]
+
   },
 
   "permissions": [
