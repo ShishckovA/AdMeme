@@ -8,13 +8,8 @@
     "128": "icon.png"
   },
   "content_scripts": [
-    {
-      "matches": [ "*://*/*" ],
-      "js": [ "content.js" ]
-    }
   ],
   "background": {
-    "scripts": ["background.js"]
   },
   "permissions": [
     "http://*/*",
