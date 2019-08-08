@@ -1,30 +1,24 @@
- {
+{
   "manifest_version": 2,
   "name": "AdMeme",
-  "version": "1.0",
+  "version": "1.1",
   
   "icons": {
     "128": "icon.png"
   },
 
-  "content_scripts": [ {
-    "matches": ["http://*/*"],
-    "js": ["onpageload.js"]
-  }
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["onpageload.js"]}
   ],
-  
-  "background": {
-
-  },
 
   "permissions": [
-    "http://*/*",
-    "https://*/*"
+    "<all_urls>"
   ],
 
   "browser_action": {
     "default_title": "AdMeme",
-    "default_icon": "icon.png"
+    "default_icon": "icon.png",
+    "default_popup": "popUp.html"
   }
-  
 }
