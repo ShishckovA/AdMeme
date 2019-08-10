@@ -14,17 +14,14 @@ function deleteBanners () {
 function deleteFromVk() {
     var imgs = document.getElementsByTagName("img");
     var divs = document.getElementsByTagName("div");
-    //var inses = document.getElementsByTagName("ins");
     for (var i = 0; i < imgs.length; i++) {
         img = imgs[i];
-	//img.src = chrome.extension.getURL('memes/img' + (Math.floor(Math.random() * 10) + 1) + '.jpg');
 	if (img.className.indexOf("ads", 0) != -1) {
-        	img.src = chrome.extension.getURL('memes/img' + (Math.floor(Math.random() * 10) + 1) + '.jpg');
+        	img.src = getImgSrc;
 	}
     }
     for (var i = 0; i < txts.length; i++) {
         img = divs[i];
-	//img.src = chrome.extension.getURL('memes/img' + (Math.floor(Math.random() * 10) + 1) + '.jpg');
 	if (img.className.indexOf("ads", 0) != -1 && img.className.indexOf("text", 0) != -1) {
         	img.parentNode.removeChild(img);
 	}
