@@ -1,18 +1,14 @@
-function deleteAdSence () {
-    //Lesha
-    var divs = document.getElementsByTagName("script");
-    for (var i = 0; i < divs.length; i++) {
-        div = divs[i];
-        srcURL = div.innerHTML;
-        if (srcURL.indexOf("adsbygoogle") != -1) {
-            div.outerHTML = "<img src=\"" + chrome.extension.getURL('memes/img' + (Math.floor(Math.random() * 10) + 1) + '.jpg') + "\">";
-            alert(div.id);
-        }
-    }
+function getImgSrc() {
+    return chrome.extension.getURL('memes/img' + (Math.floor(Math.random() * 10) + 1) + '.jpg')
 }
 
 function deleteBanners () {
-    //Natasha
+    var reg = new RegExp("img_and_title");
+    var ps = document.querySelectorAll("[class$='js-ads-block']");
+    for (var i = 0; i < ps.length; i++) {
+        p = ps[i];
+        p.innerHTML = "<img src=\"" + getImgSrc() + "\">";
+    }
 }
 
 function deleteFromVk() {
@@ -21,9 +17,8 @@ function deleteFromVk() {
 
 
 function run(event) {
-    deleteAdSence();
     deleteBanners();
-    deleteFromVk();
+    //deleteFromVk();
 }
 // run();
 window.addEventListener("load", run);
