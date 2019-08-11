@@ -12,22 +12,12 @@ function deleteBanners () {
 }
 
 function deleteFromVk() {
-    var imgs = document.getElementsByTagName("img");
-    var divs = document.getElementsByTagName("div");
-    for (var i = 0; i < imgs.length; i++) {
-        img = imgs[i];
-	if (img.className.indexOf("ads", 0) != -1) {
-        	img.src = getImgSrc;
-	}
-    }
-    for (var i = 0; i < txts.length; i++) {
-        img = divs[i];
-	if (img.className.indexOf("ads", 0) != -1 && img.className.indexOf("text", 0) != -1) {
-        	img.parentNode.removeChild(img);
-	}
+    if (document.URL.indexOf("vk.com") != -1) {
+        var ps = document.getElementById("ads_left");
+        var w = ps.offsetWidth;
+        ps.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";
     }
 }
-
 
 function run(event) {
     deleteBanners();
