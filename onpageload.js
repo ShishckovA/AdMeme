@@ -1,5 +1,9 @@
+function getRandNum(n) {
+    return (Math.floor(Math.random() * n) + 1);
+}
+
 function getImgSrc() {
-    return chrome.extension.getURL('memes/img' + (Math.floor(Math.random() * 10) + 1) + '.jpg')
+    return chrome.extension.getURL('memes/img' + getRandNum(10) + '.jpg');
 }
 
 function deleteBanners () {
