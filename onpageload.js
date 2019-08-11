@@ -7,7 +7,6 @@ function getImgSrc() {
 }
 
 function deleteBanners () {
-    var reg = new RegExp("img_and_title");
     var ps = document.querySelectorAll("[class$='js-ads-block']");
     for (var i = 0; i < ps.length; i++) {
         p = ps[i];
@@ -20,6 +19,12 @@ function deleteFromVk() {
         var ps = document.getElementById("ads_left");
         var w = ps.offsetWidth;
         ps.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";
+        var divs = document.querySelectorAll("[class$='_ads_block_data_w mailru-visibility-check closed_comments deep_active']");
+        for (var i = 0; i < divs.length; i++) {
+            div = divs[i];
+            w = div.offsetWidth;
+            div.innerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";
+        }
     }
 }
 
