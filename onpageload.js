@@ -3,7 +3,7 @@ function getRandNum(n) {
 }
 
 function getImgSrc() {
-    return chrome.extension.getURL('memes/img' + getRandNum(10) + '.jpg');
+    return chrome.extension.getURL('memes/img' + getRandNum(15) + '.jpg');
 }
 
 function deleteBanners () {
