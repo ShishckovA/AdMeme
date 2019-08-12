@@ -83,7 +83,6 @@ var rules = [
             allDomains = true;
         }
         if (allDomains || goodDomains.indexOf(url) != -1) {
-            alert(-1)
             var ps = document.querySelectorAll(rule["htmlRuleSelector"]);
             for (var i = 0; i < ps.length; i++) {
                 p = ps[i];
@@ -97,6 +96,7 @@ var rules = [
 function run(event) {
     deleteBanners();
     deleteFromVk();
+    deleteAll();
 }
 // run();
 window.addEventListener("load", run);
