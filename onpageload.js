@@ -38,7 +38,7 @@ function getFile(file)
 
 function deleteAll() {
     var rules = (getFile(chrome.extension.getURL('./input.txt')));
-    var rules = JSON.parse(rules);
+    rules = JSON.parse(rules);
     var url = document.URL;
 
     url = url.replace(/https?:\/\/(www\.)?/, '');
