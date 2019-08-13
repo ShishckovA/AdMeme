@@ -29,55 +29,23 @@ function deleteFromVk() {
     }
 }
 
-function deleteAll() {
-var rules = [
-   {
-     'isException' : false,
-     'options' :
-     {
-       'domains' : [ "bit-tech.net" ],
-       'skipDomains' : [  ]
-     },
-     'htmlRuleSelector' : '.xtag_container'
-   },
-   {
-     'isException' : false,
-     'options' :
-     {
-       'domains' : [ "fanfics.me" ],
-       'skipDomains' : [  ]
-     },
-     'htmlRuleSelector' : '.FicHead.ContentTable > .left'
-   },
-   {
-     'isException' : false,
-     'options' :
-     {
-       'domains' : [ "maximonline.ru" ],
-       'skipDomains' : [  ]
-     },
-     'htmlRuleSelector' : '.top-banner'
-   },
-   {
-     'isException' : false,
-     'options' :
-     {
-       'domains' : [ "fijisun.com.fj" ],
-       'skipDomains' : [  ]
-     },
-     'htmlRuleSelector' : '.widget-3'
-   }
-];
+function getFile(file)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", file, false); 
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+}
 
+function deleteAll() {
+    var rules = (getFile(chrome.extension.getURL('./input.txt')));
+    var rules = JSON.parse(rules);
     var url = document.URL;
+
     url = url.replace(/https?:\/\/(www\.)?/, '');
     url = url.replace(/\/.*$/, '');
-
-
-    // var url = url.substr(url.indexOf(".") + 1);
-    // var url = url.substr(0, url.indexOf("/")) // https://foo.baz.bar/spam/eggs/ to baz.bar
-
     console.log(url);
+
     for (var ruleN = 0; ruleN < rules.length; ruleN++) {
         var rule = rules[ruleN];
         var allDomains = false;
@@ -93,7 +61,8 @@ var rules = [
             for (var i = 0; i < ps.length; i++) {
                 p = ps[i];
                 var w = p.offsetWidth;
-                p.innerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";
+                var h = p.offsetHeight;
+                p.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px height=" + h + "px>";
             }
         }
     }
@@ -101,9 +70,8 @@ var rules = [
 }
 
 function run(event) {
-    deleteBanners();
-    deleteFromVk();
     deleteAll();
 }
 // run();
+
 window.addEventListener("load", run);
