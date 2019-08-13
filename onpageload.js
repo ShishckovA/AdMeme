@@ -70,8 +70,13 @@ var rules = [
 ];
 
     var url = document.URL;
-    var url = url.substr(url.indexOf(".") + 1);
-    var url = url.substr(0, url.indexOf("/")) // https://foo.baz.bar/spam/eggs/ to baz.bar
+    url = url.replace(/https?:\/\/(www\.)?/, '');
+    url = url.replace(/\/.*$/, '');
+
+
+    // var url = url.substr(url.indexOf(".") + 1);
+    // var url = url.substr(0, url.indexOf("/")) // https://foo.baz.bar/spam/eggs/ to baz.bar
+
     console.log(url);
     for (var ruleN = 0; ruleN < rules.length; ruleN++) {
         var rule = rules[ruleN];
@@ -87,7 +92,8 @@ var rules = [
             var ps = document.querySelectorAll(rule["htmlRuleSelector"]);
             for (var i = 0; i < ps.length; i++) {
                 p = ps[i];
-                p.innerHTML = "<img src=\"" + getImgSrc() + "\">";
+                var w = p.offsetWidth;
+                p.innerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";
             }
         }
     }
