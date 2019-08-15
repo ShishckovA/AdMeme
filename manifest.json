@@ -12,12 +12,19 @@
     "js": ["onpageload.js"]}
   ],
 
+  "background" : {"scripts": ["./src/badFingerprints.js", 
+                              "./src/main.js", 
+                              "./src/abp-filter-parser.js", 
+                              "./src/bigParser.js", "background.js"]},
+
   "permissions": [
     "<all_urls>"
   ],
-   "web_accessible_resources": [
-    "*"
-    ],
+
+  "web_accessible_resources": [
+    "<all_urls>"
+  ],
+
   "browser_action": {
     "default_title": "AdMeme",
     "default_icon": "icon.png",
