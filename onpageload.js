@@ -62,7 +62,7 @@ function deleteAll() {
                 p = ps[i];
                 var w = p.offsetWidth;
                 var h = p.offsetHeight;
-                p.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px height=" + h + "px>";
+                p.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";
             }
         }
     }
