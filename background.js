@@ -11,8 +11,8 @@ function updateRules() {
 }
 
 async function updateInput() {
-    var text = await getFile("https://easylist-downloads.adblockplus.org/ruadlist+easylist.txt");
-    var rules = getParsedData(text);
+    var text = await getFile("https://filters.adtidy.org/extension/chromium/filters/1.txt");
+    rules = getParsedData(text);
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
         if (request.request == "getRules")
@@ -21,4 +21,5 @@ async function updateInput() {
       });
 }
 
+var rules;
 updateInput();

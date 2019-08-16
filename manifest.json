@@ -18,7 +18,7 @@
                               "./src/bigParser.js", "background.js"]},
 
   "permissions": [
-    "tabs"
+    "tabs", "storage"
   ],
 
   "web_accessible_resources": [
