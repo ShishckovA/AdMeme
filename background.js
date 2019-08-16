@@ -10,6 +10,8 @@ function updateRules() {
     rules = JSON.parse(rules);
 }
 
+var enabled = true;
+
 async function updateInput() {
     var text = await getFile("https://easylist-downloads.adblockplus.org/ruadlist+easylist.txt");
     var rules = getParsedData(text);
@@ -17,8 +19,18 @@ async function updateInput() {
       function(request, sender, sendResponse) {
         if (request.request == "getRules")
           sendResponse({"rules" : rules});
+	if (request.request == "GetEnabled")
+          sendResponse({"enabled" : enabled});
       console.log("responce");
       });
 }
 
 updateInput();
+
+//chrome.webRequest.onBeforeRequest.addListener(
+//	function(details) {
+//		return {cancel: enabled };
+//	},
+//	{urls: blocked_domains},
+//	["blocking"]
+//);

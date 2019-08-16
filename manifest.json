@@ -15,7 +15,8 @@
   "background" : {"scripts": ["./src/badFingerprints.js", 
                               "./src/main.js", 
                               "./src/abp-filter-parser.js", 
-                              "./src/bigParser.js", "background.js"]},
+                              "./src/bigParser.js", 
+                              "background.js"]},
 
   "permissions": [
     "tabs"
@@ -28,6 +29,6 @@
   "browser_action": {
     "default_title": "AdMeme",
     "default_icon": "icon.png",
-    "default_popup": "popUp.html"
+    "default_popup": "popup.html"
   }
 }
