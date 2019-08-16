@@ -3,76 +3,67 @@ function getRandNum(n) {
 }
 
 function getImgSrc() {
-    return chrome.extension.getURL('memes/img' + getRandNum(15) + '.jpg');
+    return chrome.extension.getURL('memes/img' + getRandNum(31) + '.jpg');
 }
 
-<<<<<<< HEAD
-=======
-function deleteBanners () {
-    var ps = document.querySelectorAll("[class$='js-ads-block']");
-    for (var i = 0; i < ps.length; i++) {
-        p = ps[i];
-        p.innerHTML = "<img src=\"" + getImgSrc() + "\">";
-    }
-}
+function deleteAll(pageRules) {
+    for (var i = 0; i < pageRules.length; i++) {
+        var rule = pageRules[i];
+        var ps = document.querySelectorAll(rule["htmlRuleSelector"]);
+        for (var j = 0; j < ps.length; j++) {
+            console.log(rule["htmlRuleSelector"])
+            p = ps[j];
+            var w = p.offsetWidth;
+            var h = p.offsetHeight;
+            console.log(p.outerHTML);
 
-function deleteFromVk() {
-    if (document.URL.indexOf("vk.com") != -1) {
-        var ps = document.getElementById("ads_left");
-        var w = ps.offsetWidth;
-        ps.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";
-
-        var divs = document.querySelectorAll("[class$='_ads_block_data_w mailru-visibility-check closed_comments deep_active']");
-        for (var i = 0; i < divs.length; i++) {
-            div = divs[i];
-            w = div.offsetWidth;
-            div.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";
+            p.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px height=" + h + "px>";
         }
     }
 }
 
-function getFile(file)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", file, false); 
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
-}
-
->>>>>>> 5d059bdebd43faf45e0232e7f1150fc66fb76243
-function deleteAll() {
+function getPageRules() {
+    var cpageRules = [];
     var url = document.URL;
-
     url = url.replace(/https?:\/\/(www\.)?/, '');
     url = url.replace(/\/.*$/, '');
-    console.log(url);
-
-    for (var ruleN = 0; ruleN < rules.length; ruleN++) {
-        var rule = rules[ruleN];
-        var allDomains = false;
-        var goodDomains = [];
-        if ("domains" in rule["options"]) {
-            goodDomains = rule["options"]["domains"];
-        }
-        else {
-            allDomains = true;
-        }
-        if (allDomains || goodDomains.indexOf(url) != -1) {
-            var ps = document.querySelectorAll(rule["htmlRuleSelector"]);
-            for (var i = 0; i < ps.length; i++) {
-                p = ps[i];
-                var w = p.offsetWidth;
-                var h = p.offsetHeight;
-                p.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";
+    chrome.runtime.sendMessage({"request": "getRules"}, function(response) {
+        rules = response.rules;
+        // console.log(rules);
+        for (var ruleN = 0; ruleN < rules["htmlRuleFilters"].length; ruleN++) {
+            var rule = rules["htmlRuleFilters"][ruleN];
+            var allDomains = false;
+            var goodDomains = [];
+            if ("domains" in rule["options"]) {
+                goodDomains = rule["options"]["domains"];
+            }
+            else {
+                allDomains = true;
+            }
+            if (allDomains || goodDomains.indexOf(url) != -1) {
+                cpageRules.push(rule);
             }
         }
-    }
+    }); 
+    console.log(cpageRules);
+    return cpageRules;
 }
 
 
 function run(event) {
-    deleteAll();
+    deleteAll(pageRules);
 }
-// run();
 
-window.addEventListener("load", run);
+var rules;
+var pageRules = getPageRules();
+console.log(pageRules.length)
+setInterval(run, 2000);
+
+// var target = document.querySelector('body');
+// var observer = new window.MutationObserver(
+//     function(mutations) {
+//         for (var mutatuion in mutations) 
+//     }
+// );
+
+// observer.observe(target, { subtree: true, characterData: true, childList: true })
