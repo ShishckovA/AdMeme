@@ -7,16 +7,19 @@
     "128": "icon.png"
   },
 
-  "background" : {"scripts": ["./src/badFingerprints.js",
-                              "./src/main.js",
-                              "./src/abp-filter-parser.js",
-                              "./src/bigParser.js",
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["onpageload.js"]}
+  ],
+
+  "background" : {"scripts": ["./src/badFingerprints.js", 
+                              "./src/main.js", 
+                              "./src/abp-filter-parser.js", 
+                              "./src/bigParser.js", 
                               "background.js"]},
 
   "permissions": [
-    "tabs", "storage",
-    "webRequest",
-    "webRequestBlocking"
+    "tabs"
   ],
 
   "web_accessible_resources": [

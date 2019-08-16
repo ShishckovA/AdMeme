@@ -51,6 +51,7 @@ function getPageRules() {
 
 
 function run(event) {
+    console.log(123);
     chrome.runtime.sendMessage({"request": "GetEnabled"}, function(response) {
         enabled = response.enabled;
         if (enabled) {
