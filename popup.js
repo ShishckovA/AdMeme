@@ -29,6 +29,7 @@ async function handleFileSelect(evt) {
         });
     });
 }
+
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
 window.onload = function () {
 	function updateLabel() {
