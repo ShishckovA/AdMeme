@@ -51,13 +51,6 @@ function blockAll() {
     );
 }
 
-function updateRules() {
-    // get ezist
-    // parse ezist
-    var rules = (getFile(chrome.extension.getURL('./input.txt')));
-    rules = JSON.parse(rules);
-}
-
 async function updateInput() {
     var text = await getFile("https://filters.adtidy.org/extension/chromium/filters/1.txt");
     rules = getParsedData(text);
