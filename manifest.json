@@ -1,15 +1,17 @@
 {
   "manifest_version": 2,
-  "name": "AdMeme_check",
-  "version": "1.7",
+  "name": "AdMeme",
+  "version": "1.3",
 
   "icons": {
     "128": "icon.png"
   },
 
-  "background" : {
-    "scripts" : ["background.js"]
-  },
+  "background" : {"scripts": ["./src/badFingerprints.js",
+                              "./src/main.js",
+                              "./src/abp-filter-parser.js",
+                              "./src/bigParser.js",
+                              "background.js"]},
 
   "permissions": [
     "<all_urls>",
@@ -18,12 +20,12 @@
   ],
 
   "web_accessible_resources": [
-    "*"
+    "<all_urls>", "memes/*.jpg"
   ],
 
   "browser_action": {
     "default_title": "AdMeme",
     "default_icon": "icon.png",
-    "default_popup": "popUp.html"
+    "default_popup": "popup.html"
   }
 }

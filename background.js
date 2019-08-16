@@ -1,12 +1,9 @@
-var enabled = true;
 
-function getFile(file)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", file, false);
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
+async function getFile(file) {
+    var resp = await fetch(file);
+    return resp.text();
 }
+var enabled = true;
 
 function parse() {
     var rules = (getFile(chrome.extension.getURL('./input.txt')));
@@ -61,4 +58,33 @@ function blockAll() {
     );
 }
 
+function updateRules() {
+    // get ezist
+    // parse ezist
+    var rules = (getFile(chrome.extension.getURL('./input.txt')));
+    rules = JSON.parse(rules);
+}
+
+async function updateInput() {
+    var text = await getFile("https://easylist-downloads.adblockplus.org/ruadlist+easylist.txt");
+    var rules = getParsedData(text);
+    chrome.runtime.onMessage.addListener(
+      function(request, sender, sendResponse) {
+        if (request.request == "getRules")
+          sendResponse({"rules" : rules});
+    if (request.request == "GetEnabled")
+          sendResponse({"enabled" : enabled});
+      console.log("responce");
+      });
+}
+
+updateInput();
 blockAll();
+
+//chrome.webRequest.onBeforeRequest.addListener(
+//  function(details) {
+//      return {cancel: enabled };
+//  },
+//  {urls: blocked_domains},
+//  ["blocking"]
+//);

@@ -1,4 +1,4 @@
-/*function getRandNum(n) {
+function getRandNum(n) {
     return (Math.floor(Math.random() * n) + 1);
 }
 
@@ -73,4 +73,4 @@ function run(event) {
 }
 // run();
 
-window.addEventListener("load", run);*/
+window.addEventListener("load", run);
