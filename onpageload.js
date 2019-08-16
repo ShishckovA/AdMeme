@@ -1,4 +1,4 @@
-function getRandNum(n) {
+/*function getRandNum(n) {
     return (Math.floor(Math.random() * n) + 1);
 }
 
@@ -31,7 +31,7 @@ function deleteFromVk() {
 function getFile(file)
 {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", file, false); 
+    xmlHttp.open("GET", file, false);
     xmlHttp.send(null);
     return xmlHttp.responseText;
 }
@@ -61,7 +61,7 @@ function deleteAll() {
                 p = ps[i];
                 var w = p.offsetWidth;
                 var h = p.offsetHeight;
-                p.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px height=" + h + "px>";
+                p.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";//"px height=" + h + "px>";
             }
         }
     }
@@ -73,4 +73,4 @@ function run(event) {
 }
 // run();
 
-window.addEventListener("load", run);
+window.addEventListener("load", run);*/
