@@ -16,8 +16,7 @@ function deleteAll(pageRules) {
             var w = p.offsetWidth;
             var h = p.offsetHeight;
             console.log(p.outerHTML);
-
-            p.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px height=" + h + "px>";
+            p.outerHTML = "<img src=\"" + getImgSrc() + "\" width=" + w + "px>";
         }
     }
 }
@@ -29,7 +28,7 @@ function getPageRules() {
     url = url.replace(/\/.*$/, '');
     chrome.runtime.sendMessage({"request": "getRules"}, function(response) {
         rules = response.rules;
-        // console.log(rules);
+        console.log(rules);
         for (var ruleN = 0; ruleN < rules["htmlRuleFilters"].length; ruleN++) {
             var rule = rules["htmlRuleFilters"][ruleN];
             var allDomains = false;
