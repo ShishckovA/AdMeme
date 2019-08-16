@@ -14,7 +14,7 @@
                               "background.js"]},
 
   "permissions": [
-    "tabs", "storage"
+    "tabs", "storage",
     "webRequest",
     "webRequestBlocking"
   ],
