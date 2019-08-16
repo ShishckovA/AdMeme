@@ -14,13 +14,9 @@
                               "background.js"]},
 
   "permissions": [
-<<<<<<< HEAD
     "tabs", "storage"
-=======
-    "<all_urls>",
     "webRequest",
     "webRequestBlocking"
->>>>>>> 5c085bbcdc613d4f5f375b58428c5aeab48362ba
   ],
 
   "web_accessible_resources": [

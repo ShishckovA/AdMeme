@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 async function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
     // files is a FileList of File objects. List some properties.
@@ -31,7 +30,6 @@ async function handleFileSelect(evt) {
     });
 }
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
-=======
 window.onload = function () {
 	function updateLabel() {
 		var enabled = chrome.extension.getBackgroundPage().enabled;
@@ -44,4 +42,3 @@ window.onload = function () {
 	};
 	updateLabel();
 }
->>>>>>> 5c085bbcdc613d4f5f375b58428c5aeab48362ba
