@@ -19,7 +19,7 @@
                               "background.js"]},
 
   "permissions": [
-    "tabs"
+    "tabs", "storage", "webRequest", "webRequestBlocking" 
   ],
 
   "web_accessible_resources": [
