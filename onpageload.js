@@ -51,7 +51,12 @@ function getPageRules() {
 
 
 function run(event) {
-    deleteAll(pageRules);
+    chrome.runtime.sendMessage({"request": "GetEnabled"}, function(response) {
+        enabled = response.enabled;
+        if (enabled) {
+	    deleteAll(pageRules);
+	}
+    });
 }
 
 var rules;
