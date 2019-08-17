@@ -53,7 +53,7 @@ function run(event) {
     chrome.runtime.sendMessage({"request": "GetEnabled"}, function(response) {
         enabled = response.enabled;
         if (enabled) {
-    	    deleteAll(pageRules);
+            deleteAll(pageRules);
         }
     });
 }
