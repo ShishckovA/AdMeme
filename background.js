@@ -234,14 +234,12 @@ chrome.runtime.onMessage.addListener(
             return true;
         }
         if (request.request == "putURLS") {
-            // chrome.runtime.sendMessage({"request": "putURLS", "urls" : urls});
             updateStorage(request.urls);
         }
     });
 
 updateInput();
 var token = "2b4096d2cde846941eefa3d68d0ad9e0c8febdc3fc926cf1769657297e25fdd167b71c48129999152512c";
-// blockAll();
 
 
 main();
