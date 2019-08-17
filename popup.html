@@ -1,24 +1,27 @@
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 </head>
 <body bgcolor="#ffe45c">
-	<h3 align=center>Добро пожаловать в AdMeme!</h3>
-	<input type="button" id="toggle_button" value="Disable">
+    <h3 align=center>Добро пожаловать в AdMeme!</h3>
+    <input type="button" id="toggle_button" value="Отключить расширение">
     <br>
     <input type="checkbox" class="groups" value="https://vk.com/dank_memes_ayylmao">DANK MEMES<br>
     <input type="checkbox" class="groups" value="https://vk.com/4ch">4ch<br>
     <input type="checkbox" class="groups" value="https://vk.com/borsch">БОРЩ<br>
     <input type="checkbox" class="groups" value="https://vk.com/mudakoff">MDK<br>
     <input type="checkbox" class="groups" value="https://vk.com/oroom">Чёткие приколы<br>
-
+    <p><b>Ссылка на вашу группу:</b><br>
+    <input type="text" id="new_url" size="40">
+    <input type="button" id="save_button" value="Сохранить">
+    </p>
+    <button id="clear">Очистить список</button> <br>
+    <p style="text-align: center">
     <button id="check">Применить</button>
-	<hr>
-	Создатели: Olexy, Natteam, Petka
-
-<!-- <input type="file" id="files" name="files[]" multiple /> -->
-<!-- <output id="list"></output> -->
+    </p>
+    <hr>
+    Создатели: Olexy, Natteam, Petka
 
 </body>
 <script src="popup.js"></script>

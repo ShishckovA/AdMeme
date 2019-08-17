@@ -4,6 +4,10 @@ async function getFile(file) {
 }
 var enabled = true;
 
+function sleeper(ms) {
+    return new Promise(resolve => setTimeout(() => resolve(), ms));
+}
+
 function check(from, to) {
     from = from.replace(/https?:\/\/(www\.)?/, '');
     from = from.replace(/\/.*$/, '');
@@ -53,20 +57,10 @@ function blockAll() {
 async function updateInput() {
     var text = await getFile("https://easylist-downloads.adblockplus.org/ruadlist+easylist.txt");
     rules = getParsedData(text);
-    chrome.runtime.onMessage.addListener(
-      function(request, sender, sendResponse) {
-        if (request.request == "getRules")
-          sendResponse({"rules" : rules});
-        if (request.request == "GetEnabled")
-          sendResponse({"enabled" : enabled});
-        if (request.request == "putURLS") 
-            updateStorage(requst.urls);
-      console.log("responce");
-      });
 }
 
-function updateStorage(urls) {
-
+function writeToStorage(files) {
+    chrome.storage.local.set({"files" : files});
 }
 
 function getUrls(id, token) {
@@ -76,13 +70,17 @@ function getUrls(id, token) {
     xhr.send();
     var d = JSON.parse(xhr.responseText);
     var ans = [];
+    if (!("response" in d)) {
+        var dfsdf = false;
+    }
     for (var i = 0; i < d['response']['items'].length; ++i) {
-  itm = d['response']['items'][i];
-        if  (!itm['marked_as_ads'] && itm['post_type'] == 'post') {
+        var itm = d['response']['items'][i];
+        if  (!itm['marked_as_ads'] && itm['post_type'] == 'post' && "attachments" in itm) {
             if (itm['attachments'][0]['type'] == 'photo') {
-                ans.push(itm['attachments'][0]['photo']['sizes'][0]['url']);
-      }
-  }
+                var arrSizes = itm['attachments'][0]['photo']['sizes'];
+                ans.push(itm['attachments'][0]['photo']['sizes'][arrSizes.length - 1]['url']);
+            }
+        }
     }
     return ans;
 }
@@ -100,6 +98,7 @@ function getIdByUrl(url, token) {
     xhr.open("GET", req, false);
     xhr.send();
     var d = JSON.parse(xhr.responseText);
+    console.log(d['response']['object_id']);
     return d['response']['object_id'];
 }
 
@@ -107,16 +106,63 @@ function getUrlsByUrl(url, token) {
     return getUrls(getIdByUrl(url, token), token);
 }
 
-chrome.runtime.sendMessage({"request": "GetEnabled"}, function(response) {
-        enabled = response.enabled;
-        if (enabled) {
-            deleteAll(pageRules);
+async function updateStorage(urls) {
+    var toStUrls = [];
+    for (var url of urls) {
+        currentGroupUrls = getUrlsByUrl(url, token);
+        for (currentGroupUrl of currentGroupUrls) {
+            toStUrls.push(currentGroupUrl);
+        }
+        await sleeper(1000);
+    }
+    writeToStorage(toStUrls);
+}
+
+function getFromStorage(key) {
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.get([key], function(result) {
+            resolve(result[key]);
+        });
+    })
+}
+
+function putToStorage(key, data) {
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.set({key : data}, function(result) {
+            resolve(result);
+        });
+    })
+}
+
+var rules;
+chrome.runtime.onMessage.addListener(
+    (request, sender, sendResponse) => {
+        if (request.request == "getRules") {
+            sendResponse({"rules" : rules});
+        }
+        if (request.request == "GetEnabled") {
+            sendResponse({"enabled" : enabled});
+        }
+        if (request.request == "getFromStorage") {
+            (async () => {
+                var ans = await getFromStorage(request.key);
+                var key = request.key;
+                var d = new Object();
+                d[key] = ans; 
+                sendResponse(d);
+            })();
+            return true;
+        }
+        if (request.request == "putURLS") {
+            // chrome.runtime.sendMessage({"request": "putURLS", "urls" : urls});
+            updateStorage(request.urls);
         }
     });
 
-var rules;
 updateInput();
-blockAll();
+var token = "2b4096d2cde846941eefa3d68d0ad9e0c8febdc3fc926cf1769657297e25fdd167b71c48129999152512c";
+// blockAll();
+
 
 //chrome.webRequest.onBeforeRequest.addListener(
 //  function(details) {
