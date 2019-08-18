@@ -180,7 +180,8 @@ function getUrlsByUrl(url, token) {
 async function updateStorage(urls) {
     var toStUrls = [];
     for (var url of urls) {
-        currentGroupUrls = getUrlsByUrl(url, token);
+        var req = (await fetch("http://universum.pythonanywhere.com/api?url=" + url));
+        var currentGroupUrls = (await req.json()).response;
         for (currentGroupUrl of currentGroupUrls) {
             toStUrls.push(currentGroupUrl);
         }
@@ -239,7 +240,5 @@ chrome.runtime.onMessage.addListener(
     });
 
 updateInput();
-var token = "2b4096d2cde846941eefa3d68d0ad9e0c8febdc3fc926cf1769657297e25fdd167b71c48129999152512c";
-
 
 main();
