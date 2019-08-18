@@ -1,31 +1,74 @@
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        body{
+            background-color: #c0f8ff;
+            font-family: Calibri;
+            width: 412px;
+        }
+        h1{
+            font-family: 'Kalam', cursive;
+            margin-bottom: 0px;
+        }
+        h2{
+            font-size: 20px;
+            margin-top: 0px;
+            margin-left: 6px;
+            font-weight: bold;
+        }
+        h3{
+            font-size: 17px;
+            margin-left: 6px;
+            margin-bottom: 0px;
+        }
+        hr{
+            margin-bottom: 0px;
+        }
+        input[type=text] {
+            width: 300px;
+            padding: 8px 18px;
+            margin: 0px 0;
+            margin-right: 3px;
+            margin-left: 5px;
+            margin-top: 5px;
+        }
+        input[type=text]:focus {
+            border: 1px solid #00bcd4;
+        }
+    </style>
+    <link href="css/switch.css" rel="stylesheet" media="screen">
+    <link href="css/outline_button.css" rel="stylesheet" media="screen">
+    <link href="css/apply_button.css" rel="stylesheet" media="screen">
+    <link href="css/checkbox.css" rel="stylesheet" media="screen">
+    <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
 </head>
-<body bgcolor="#ffe45c">
-	<h3 align=center>Добро пожаловать в AdMeme!</h3>
-	<input type="button" id="toggle_button" value="Отключить расширение">
+<body>
+    <h1 align=center>AdMeme</h1>
+    <div align=center>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <hr>
     <br>
-    <input type="checkbox" class="groups" value="https://vk.com/dank_memes_ayylmao">DANK MEMES<br>
-    <input type="checkbox" class="groups" value="https://vk.com/4ch">4ch<br>
-    <input type="checkbox" class="groups" value="https://vk.com/borsch">БОРЩ<br>
-    <input type="checkbox" class="groups" value="https://vk.com/mudakoff">MDK<br>
-    <input type="checkbox" class="groups" value="https://vk.com/oroom">Чёткие приколы<br>
-    <p><b>Ссылка на вашу группу:</b><br>
-    <input type="text" id="new_url" size="40">
-    <input type="button" id="save_button" value="Сохранить">
+    <div align=left>
+        <h2>Выберите группы для мемов:</h2>
+    </div>
+    <input type="text" id="new_url" size="40" placeholder="Ссылка на вашу группу">
+    <input class="small_btn blue" type="button" id="save_button" value="Добавить">
     </p>
-    <button id="clear">Очистить список</button> <br>
-    <p style="text-align: center">
-    <button id="check">Применить</button>
+    <p>
+    <button class="btn blue" id="clear">Сбросить</button>
+    <button class="apply_button">Сохранить</button>
     </p>
-	<hr>
-	Создатели: Olexy, Natteam, Petka
+  <hr>
+  Создатели: Olexy, Natteam, Petka
 
 <!-- <input type="file" id="files" name="files[]" multiple /> -->
 <!-- <output id="list"></output> -->
-
+    <script src="js/bootstrap.min.js"></script>
 </body>
 <script src="popup.js"></script>
 

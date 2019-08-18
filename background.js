@@ -226,11 +226,11 @@ chrome.runtime.onInstalled.addListener(function(details){
 
 var rules;
 
-var defautlUrls = ["https://vk.com/dank_memes_ayylmao",
-"https://vk.com/4ch",
-"https://vk.com/borsch",
-"https://vk.com/mudakoff",
-"https://vk.com/oroom"]
+var defautlUrls = [["https://vk.com/dank_memes_ayylmao", "Dank memes"],
+                   ["https://vk.com/borsch", "Борщ"],
+                ["https://vk.com/sortnlogn", "Сортируй"],
+                ["https://vk.com/oroom", "Чёткие приколы"],
+                ["https://vk.com/cringey", "Cringe"]];
 
 chrome.runtime.onMessage.addListener(
     (request, sender, sendResponse) => {
