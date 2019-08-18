@@ -83,7 +83,7 @@ async function saveUrl() {
         return;
     }
     var myurls = await getUrls();
-    var defaulturls = await getDefautl();
+    var defaulturls = await getDefault();
     if (myurls == undefined)
         myurls = [];
     if (checkUrl(myurls, url) || checkUrl(defaulturls, url)) {
@@ -132,12 +132,13 @@ function clearUrls() {
 window.onload = async function () {
     var myUrls = await getUrls();
     var defaultUrls = await getDefault();
+    console.log(defaultUrls);
     loadDefault(defaultUrls);
     if (myUrls != undefined)
         loadMy(myUrls);
-    putCheckes();
-    updateLabel();
-    document.getElementById('apply_button').onclick = checkCB;
-    document.getElementById('small_btn blue').onclick = saveUrl;
-    document.getElementById('btn blue').onclick = clearUrls;   
+    putChecks();
+    // updateLabel();
+    document.getElementsByClassName('apply_button')[0].onclick = checkCB;
+    document.getElementsByClassName('small_btn blue')[0].onclick = saveUrl;
+    document.getElementsByClassName('btn blue')[0].onclick = clearUrls;   
 }

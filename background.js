@@ -186,6 +186,7 @@ async function updateStorage(urls) {
             toStUrls.push(currentGroupUrl);
         }
         await sleeper(1000);
+        console.log(currentGroupUrl);
     }
     console.log(toStUrls);
     writeToStorage(toStUrls);
@@ -221,12 +222,18 @@ chrome.runtime.onInstalled.addListener(function(details){
         var thisVersion = chrome.runtime.getManifest().version;
         console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
     }
-    updateStorage(defautlUrls);
+    var list = [];
+    for (var urlp of defaultUrls) {
+        list.push(urlp[0]);
+    }
+    updateStorage(list);
 });
+
+
 
 var rules;
 
-var defautlUrls = [["https://vk.com/dank_memes_ayylmao", "Dank memes"],
+var defaultUrls = [["https://vk.com/dank_memes_ayylmao", "Dank memes"],
                    ["https://vk.com/borsch", "Борщ"],
                 ["https://vk.com/sortnlogn", "Сортируй"],
                 ["https://vk.com/oroom", "Чёткие приколы"],
@@ -242,9 +249,12 @@ chrome.runtime.onMessage.addListener(
         }
         if (request.request == "getEnabled") {
             sendResponse({"enabled" : enabled});
+            return true;
         }
-        if (request.request == "getDefaultUrls") {
-            sendResponse({"defautlUrls" : defautlUrls});
+        if (request.request == "defaultUrls") {
+            console.log({"defaultUrls" : defaultUrls});
+            sendResponse({"defaultUrls" : defaultUrls});
+            return true;
         }
         if (request.request == "getFromStorage") {
             (async () => {
@@ -258,6 +268,7 @@ chrome.runtime.onMessage.addListener(
         }
         if (request.request == "putURLS") {
             updateStorage(request.urls);
+            return true;
         }
         if (request.request == "isCorrect") {
             (async () => {
