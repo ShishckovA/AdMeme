@@ -19,6 +19,13 @@ function checkCB() {
     });
 }
 
+function checkAll() {
+    var rads = document.getElementsByClassName('groups');
+    for (rad of rads) {
+        rad.checked = true;
+    }
+}
+
 
 function insertUrl(url, name, sp) {
     var elem = document.createElement('label');
@@ -130,6 +137,8 @@ function clearUrls() {
     chrome.storage.sync.set({memoryUrls: {}}, function() {
           console.log('ticks clear');
     });
+    checkAll();
+    checkCB();
 }
 
 

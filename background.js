@@ -2,7 +2,7 @@ async function getFile(file) {
     var resp = await fetch(file);
     return resp.text();
 }
-var enabled = true;
+var enabled = false;
 var rules;
 var ready;
 var dict_req = {};
