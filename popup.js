@@ -63,6 +63,7 @@ function checkUrl(urls, url) {
     for (var i = 0; i < urls.length; ++i) {
         if (urls[i][0] == url) return true;
     }
+    if (url == "https://vk.com/dank_memes_ayylmao" || url == "https://vk.com/4ch" || url == "https://vk.com/borsch" || url == "https://vk.com/mudakoff" || url == "https://vk.com/oroom") return true;
     return false;
 }
 
