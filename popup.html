@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -41,13 +42,14 @@
     <link href="css/outline_button.css" rel="stylesheet" media="screen">
     <link href="css/apply_button.css" rel="stylesheet" media="screen">
     <link href="css/checkbox.css" rel="stylesheet" media="screen">
+    <link href="css/body.css" rel="stylesheet" media="screen">
     <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1 align=center>AdMeme</h1>
     <div align=center>
         <label class="switch">
-            <input type="checkbox">
+            <input id="AdMeme" type="checkbox" value="On">
             <span class="slider"></span>
         </label>
     </div>
@@ -55,6 +57,8 @@
     <br>
     <div align=left>
         <h2>Выберите группы для мемов:</h2>
+    </div>
+    <div id="groupList">
     </div>
     <input type="text" id="new_url" size="40" placeholder="Ссылка на вашу группу">
     <input class="small_btn blue" type="button" id="save_button" value="Добавить">
@@ -64,8 +68,9 @@
     <button class="apply_button">Сохранить</button>
     </p>
   <hr>
-  Создатели: Olexy, Natteam, Petka
-
+  <div class="bottom">
+    Создатели: Olexy, Natteam, Petka
+  </div>
 <!-- <input type="file" id="files" name="files[]" multiple /> -->
 <!-- <output id="list"></output> -->
     <script src="js/bootstrap.min.js"></script>
@@ -73,3 +78,4 @@
 <script src="popup.js"></script>
 
 </html>
+

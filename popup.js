@@ -21,12 +21,14 @@ function checkCB() {
 }
 
 
-function insertUrl(url, name) {
-    var rads = document.getElementsByClassName('groups');
+function insertUrl(url, name, sp) {
     var elem = document.createElement('label');
     elem.classList.add('container');
-    elem.classList.add('special');
-    elem.innerHTML = '<input type="checkbox" value="' + url + '">' + name + '<span class="checkmark"></span>';
+    if (sp)
+        elem.classList.add('special');
+    elem.innerHTML = '<input class="groups" type="checkbox" value="' + url + '">' + name + '<span class="checkmark"></span>';
+    var node = document.getElementById("groupList");
+    node.appendChild(elem);
 }
 
 function getChecked() {
@@ -39,13 +41,14 @@ function getChecked() {
 
 async function loadMy(urls) {
     for (var i = 0; i < urls.length; ++i) {
-       insertUrl(urls[i][0], urls[i][1]);
+       insertUrl(urls[i][0], urls[i][1], true);
     }
 }
 
 function loadDefault(urls) {
     for (var i = 0; i < urls.length; ++i) {
-       insertUrl(urls[i][0], urls[i][1]);
+       console.log(urls[i][0], urls[i][1]);
+       insertUrl(urls[i][0], urls[i][1], false);
     }
 }
 
@@ -91,7 +94,7 @@ async function saveUrl() {
         return;
     }
     myurls.push([url, correct]);
-    insertUrl(url, correct);
+    insertUrl(url, correct, true);
     chrome.storage.sync.set({myUrls: myurls}, function() {
           console.log('kek');
     });
@@ -130,14 +133,22 @@ function clearUrls() {
 
 // document.getElementById('files').addEventListener('change', handleFileSelect, false);
 window.onload = async function () {
+    function updateLabel() {
+        var enabled = chrome.extension.getBackgroundPage().enabled;
+        document.getElementById('AdMeme').checked = enabled ? true : false;
+    }
+    document.getElementById('AdMeme').onclick = function () {
+        var background = chrome.extension.getBackgroundPage();
+        background.enabled = !background.enabled;
+        updateLabel();
+    };
     var myUrls = await getUrls();
     var defaultUrls = await getDefault();
-    console.log(defaultUrls);
     loadDefault(defaultUrls);
     if (myUrls != undefined)
-        loadMy(myUrls);
-    putChecks();
-    // updateLabel();
+        await loadMy(myUrls);
+    await putChecks();
+    updateLabel();
     document.getElementsByClassName('apply_button')[0].onclick = checkCB;
     document.getElementsByClassName('small_btn blue')[0].onclick = saveUrl;
     document.getElementsByClassName('btn blue')[0].onclick = clearUrls;   

@@ -1,0 +1,16 @@
+.apply_button {
+  background-color: #00bcd4;
+  border: none;
+  color: white;
+  padding: 5px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top:0px;
+  width: 200px;
+}
+
+.apply_button:hover {
+  background-color: #00a9bf;
+}
