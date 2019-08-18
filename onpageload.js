@@ -79,7 +79,7 @@ function getPageRules() {
 
 async function run(event) {
     var pageRules = await getPageRules();
-    chrome.runtime.sendMessage({"request": "GetEnabled"}, async function(response) {
+    chrome.runtime.sendMessage({"request": "getEnabled"}, async function(response) {
         enabled = response.enabled;
         if (enabled) {
             deleteAll(pageRules);

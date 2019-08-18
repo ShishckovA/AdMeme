@@ -213,7 +213,25 @@ async function main() {
     blockAll();
 }
 
+
+chrome.runtime.onInstalled.addListener(function(details){
+    if (details.reason == "install") {
+        console.log("This is a first install!");
+    } else if (details.reason == "update") {
+        var thisVersion = chrome.runtime.getManifest().version;
+        console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
+    }
+    updateStorage(defautlUrls);
+});
+
 var rules;
+
+var defautlUrls = ["https://vk.com/dank_memes_ayylmao",
+"https://vk.com/4ch",
+"https://vk.com/borsch",
+"https://vk.com/mudakoff",
+"https://vk.com/oroom"]
+
 chrome.runtime.onMessage.addListener(
     (request, sender, sendResponse) => {
         if (request.request == "getRules") {
@@ -222,8 +240,11 @@ chrome.runtime.onMessage.addListener(
             });
             return true;
         }
-        if (request.request == "GetEnabled") {
+        if (request.request == "getEnabled") {
             sendResponse({"enabled" : enabled});
+        }
+        if (request.request == "getDefaultUrls") {
+            sendResponse({"defautlUrls" : defautlUrls});
         }
         if (request.request == "getFromStorage") {
             (async () => {
