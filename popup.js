@@ -13,7 +13,6 @@ function checkCB() {
         alert("Выберите хотяб одну!!");
         return;
     }
-    alert(urls);
     chrome.runtime.sendMessage({"request": "putURLS", "urls" : urls});
     chrome.storage.sync.set({memoryUrls: dict}, function() {
           console.log('remembered');
