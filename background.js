@@ -237,6 +237,14 @@ chrome.runtime.onMessage.addListener(
         if (request.request == "putURLS") {
             updateStorage(request.urls);
         }
+        if (request.request == "isCorrect") {
+            (async () => {
+                var ans = (await fetch("http://universum.pythonanywhere.com/api/getName?url=" + request.url)); 
+                ans = (await ans.json()).response;
+                sendResponse(ans);
+            })();
+            return true;
+        }
     });
 
 updateInput();
