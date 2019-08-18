@@ -6,15 +6,17 @@
         body{
             background-color: #c0f8ff;
             font-family: Calibri;
-            width: 412px;
+            width: 300px;
         }
         h1{
             font-family: 'Kalam', cursive;
             margin-bottom: 0px;
+            margin-top: 5px;
+            margin-left: 70px
         }
         h2{
             font-size: 20px;
-            margin-top: 0px;
+            margin-top: 50px;
             margin-left: 6px;
             font-weight: bold;
         }
@@ -27,7 +29,7 @@
             margin-bottom: 0px;
         }
         input[type=text] {
-            width: 300px;
+            width: 187px;
             padding: 8px 18px;
             margin: 0px 0;
             margin-right: 3px;
@@ -35,7 +37,7 @@
             margin-top: 5px;
         }
         input[type=text]:focus {
-            border: 1px solid #00bcd4;
+            border: 2px solid #00bcd4;
         }
     </style>
     <link href="css/switch.css" rel="stylesheet" media="screen">
@@ -46,17 +48,17 @@
     <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1 align=center>AdMeme</h1>
-    <div align=center>
-        <label class="switch">
-            <input id="AdMeme" type="checkbox" value="On">
+
+    <div>
+        <h1 style="float: left;">AdMeme</h1>
+        <label class="switch" style="float: right; position: relative; top: 9px; right: 87px;">
+            <input id="AdMeme" type="checkbox">
             <span class="slider"></span>
         </label>
     </div>
-    <hr>
     <br>
     <div align=left>
-        <h2>Выберите группы для мемов:</h2>
+        <h2>Выберите группы для мемов</h2>
     </div>
     <div id="groupList">
     </div>
@@ -69,11 +71,10 @@
     </p>
   <hr>
   <div class="bottom">
-    Создатели: Olexy, Natteam, Petka
+    Создатели: ShishkovA, Natteam, Petka
   </div>
 <!-- <input type="file" id="files" name="files[]" multiple /> -->
 <!-- <output id="list"></output> -->
-    <script src="js/bootstrap.min.js"></script>
 </body>
 <script src="popup.js"></script>
 

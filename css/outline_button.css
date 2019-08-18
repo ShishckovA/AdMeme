@@ -2,11 +2,12 @@
   border: 2px solid black;
   background-color: white;
   color: black;
-  padding: 3px 28px;
+  padding: 11px 0px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 0px;
-  width: 200px;
+  width: 145px;
+  margin-left: 4px;
+  margin-top: 30px;
 }
 
 .small_btn {
@@ -36,7 +37,7 @@
 }
 
 .blue:hover {
-  background: #00bcd4;
+  background: #00a9bf;
   color: white;
 }
 

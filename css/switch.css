@@ -51,12 +51,3 @@ input:checked + .slider:before {
   -ms-transform: translateX(19.5px);
   transform: translateX(19.5px);
 }
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 25.5px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
