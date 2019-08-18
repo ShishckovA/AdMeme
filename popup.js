@@ -21,7 +21,7 @@ function checkCB() {
 }
 
 
-function insertUrl(url) {
+function insertUrl(url, name) {
     var rads = document.getElementsByClassName('groups');
     var elem = document.createElement('input');
     elem.type = "checkbox";
@@ -32,7 +32,7 @@ function insertUrl(url) {
     br.special = '1';
     var text = document.createElement('b')
     text.special = '1';
-    text.innerHTML = url;
+    text.innerHTML = name;
     document.body.insertBefore(text, rads[0]);
     document.body.insertBefore(br, rads[0]);
     document.body.insertBefore(elem, text);
@@ -48,7 +48,7 @@ function getChecked() {
 
 async function loadHtml(urls) {
     for (var i = 0; i < urls.length; ++i) {
-       insertUrl(urls[i]);
+       insertUrl(urls[i][0], urls[i][1]);
     }
     var mem = await getChecked();
     if (mem != undefined) {
@@ -61,15 +61,24 @@ async function loadHtml(urls) {
 
 function checkUrl(urls, url) {
     for (var i = 0; i < urls.length; ++i) {
-        if (urls[i] == url) return true;
+        if (urls[i][0] == url) return true;
     }
     return false;
+}
+
+function isCorrect(url) {
+    return new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage({"request": "isCorrect", "url" : url}, async function(result) {
+            resolve(result.Name);
+        });
+    });
 }
 
 async function saveUrl() {
     var url = document.getElementById('new_url');
     url = url.value;
-    if (url.indexOf("https://vk.com/") == -1) {
+    var correct = await isCorrect(url);
+    if (correct == "") {
         alert("Введите корректную ссылку, пожалуйста");
         return;
     }
@@ -80,8 +89,8 @@ async function saveUrl() {
         alert("Такая группа уже есть");
         return;
     }
-    myurls.push(url);
-    insertUrl(url);
+    myurls.push([url, correct]);
+    insertUrl(url, correct);
     chrome.storage.sync.set({myUrls: myurls}, function() {
           console.log('kek');
     });
