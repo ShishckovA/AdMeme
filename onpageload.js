@@ -79,6 +79,9 @@ function getPageRules() {
 
 async function run(event) {
     var pageRules = await getPageRules();
+    // if (document.URL.indexOf("youtube.com") != -1) {
+    //     return;
+    // }
     chrome.runtime.sendMessage({"request": "getEnabled"}, async function(response) {
         enabled = response.enabled;
         if (enabled) {
