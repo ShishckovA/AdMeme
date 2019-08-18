@@ -180,13 +180,14 @@ function getUrlsByUrl(url, token) {
 async function updateStorage(urls) {
     var toStUrls = [];
     for (var url of urls) {
-        var req = (await fetch("http://universum.pythonanywhere.com/api?url=" + url));
+        var req = (await fetch("http://universum.pythonanywhere.com/api/getImages?url=" + url));
         var currentGroupUrls = (await req.json()).response;
         for (currentGroupUrl of currentGroupUrls) {
             toStUrls.push(currentGroupUrl);
         }
         await sleeper(1000);
     }
+    console.log(toStUrls);
     writeToStorage(toStUrls);
 }
 
