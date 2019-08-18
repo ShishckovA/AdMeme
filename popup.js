@@ -127,6 +127,9 @@ function clearUrls() {
     chrome.storage.sync.set({myUrls: []}, function() {
         console.log('storage clear');
     });
+    chrome.storage.sync.set({memoryUrls: {}}, function() {
+          console.log('ticks clear');
+    });
 }
 
 
