@@ -6,6 +6,10 @@ function getImgBytes() {
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({"request": "getFromStorage", "key" : "files"}, async function(result) {
             var files = result.files;
+            if (typeof files == "undefined" || files.length == 0) {
+                resolve("");
+                return;
+            }
             var n = getRandNum(files.length);
             resolve(files[n]);
         });
@@ -42,9 +46,14 @@ async function deleteAll(pageRules) {
             var p = ps[j];
             var w = p.offsetWidth;
             var h = p.offsetHeight;
-            var n = getRandNum(files.length);
-            var a = files[n];
-            p.outerHTML = "<img src=\"" + a + "\" width=" + w + "px>";
+            if (typeof files == "undefined" || files.length == 0) {
+                p.outerHTML = "";
+            }
+            else {
+                var n = getRandNum(files.length);
+                var a = files[n];
+                p.outerHTML = "<img src=\"" + a + "\" width=" + w + "px>";
+            }
         }
     }
 }

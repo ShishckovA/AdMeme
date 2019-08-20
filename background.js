@@ -280,6 +280,12 @@ chrome.runtime.onMessage.addListener(
         }
     });
 
+chrome.runtime.onConnect.addListener(function (externalPort) {
+    externalPort.onDisconnect.addListener(function() {
+        var ignoreError = chrome.runtime.lastError;
+    });
+})
+
 updateInput();
 
 main();

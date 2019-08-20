@@ -9,10 +9,7 @@ function checkCB() {
         dict[rad.value] = rad.checked;
         console.log(rad.value, rad.checked);
     }
-    if (urls.length == 0) {
-        alert("Выберите хотяб одну!!");
-        return;
-    }
+    chrome.runtime.sendMessage({"request": "putURLS", "urls" : urls});
     chrome.runtime.sendMessage({"request": "putURLS", "urls" : urls});
     chrome.storage.sync.set({memoryUrls: dict}, function() {
           console.log('remembered');
@@ -143,6 +140,7 @@ function clearUrls() {
 
 
 // document.getElementById('files').addEventListener('change', handleFileSelect, false);
+var port = chrome.runtime.connect()
 window.onload = async function () {
     function updateLabel() {
         var enabled = chrome.extension.getBackgroundPage().enabled;
@@ -160,7 +158,7 @@ window.onload = async function () {
         await loadMy(myUrls);
     await putChecks();
     updateLabel();
-    document.getElementsByClassName('apply_button')[0].onclick = checkCB;
-    document.getElementsByClassName('small_btn blue')[0].onclick = saveUrl;
-    document.getElementsByClassName('btn blue')[0].onclick = clearUrls;   
+    document.getElementById('apply_button').onclick = checkCB;
+    document.getElementById('add_new_but').onclick = saveUrl;
+    document.getElementById('clear').onclick = clearUrls;   
 }
