@@ -12,10 +12,10 @@
     "js": ["onpageload.js"]}
   ],
 
-  "background" : {"scripts": ["./src/badFingerprints.js", 
-                              "./src/main.js", 
-                              "./src/abp-filter-parser.js", 
-                              "./src/bigParser.js", 
+  "background" : {"scripts": ["./src/badFingerprints.js",
+                              "./src/main.js",
+                              "./src/abp-filter-parser.js",
+                              "./src/bigParser.js",
                               "background.js"]},
 
   "permissions": [
