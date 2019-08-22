@@ -1,4 +1,3 @@
-
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -6,7 +5,7 @@
         body{
             background-color: #c0f8ff;
             font-family: Calibri;
-            width: 300px;
+            width: 306px;
         }
         h1{
             font-family: 'Kalam', cursive;
@@ -16,7 +15,7 @@
         }
         h2{
             font-size: 20px;
-            margin-top: 50px;
+            margin-top: 40px;
             margin-left: 6px;
             font-weight: bold;
         }
@@ -26,7 +25,11 @@
             margin-bottom: 0px;
         }
         hr{
-            margin-bottom: 0px;
+            margin-top: 20px;
+        }
+        url{
+            margin-left: 7px;
+            cursor: pointer;
         }
         input[type=text] {
             width: 187px;
@@ -48,7 +51,6 @@
     <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <div>
         <h1 style="float: left;">AdMeme</h1>
         <label class="switch" style="float: right; position: relative; top: 9px; right: 87px;">
@@ -63,15 +65,12 @@
     <div id="groupList">
     </div>
     <input type="text" id="new_url" size="40" placeholder="Ссылка на вашу группу">
-    <input class="small_btn blue", id="add_new_but" type="button" id="save_button" value="Добавить">
-    </p>
-    <p>
-    <button class="btn blue" id="clear">Сбросить</button>
-    <button class="apply_button", id="apply_button">Сохранить</button>
+    <input class="small_btn blue" type="button" id="add_button" value="Добавить">
     </p>
   <hr>
   <div class="bottom">
     Создатели: ShishkovA, Natteam, Petka
+    <url id="clear" cursor="pointer"><u>Сбросить</u></url>
   </div>
 <!-- <input type="file" id="files" name="files[]" multiple /> -->
 <!-- <output id="list"></output> -->

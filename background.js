@@ -180,7 +180,9 @@ function getUrlsByUrl(url, token) {
 async function updateStorage(urls) {
     var toStUrls = [];
     for (var url of urls) {
-        var req = (await fetch("http://universum.pythonanywhere.com/api/getImages?url=" + url));
+        var strUrl = "http://universum.pythonanywhere.com/api/getImages?url=" + url;
+        console.log("strUrl", strUrl);
+        var req = (await fetch(strUrl));
         var currentGroupUrls = (await req.json()).response;
         for (currentGroupUrl of currentGroupUrls) {
             toStUrls.push(currentGroupUrl);
@@ -188,7 +190,6 @@ async function updateStorage(urls) {
         await sleeper(1000);
         console.log(currentGroupUrl);
     }
-    console.log(toStUrls);
     writeToStorage(toStUrls);
 }
 
@@ -208,10 +209,22 @@ function putToStorage(key, data) {
     })
 }
 
+function dictOfUrlsToList(dict) {
+    var urls = [];
+    for (var url in dict) {
+        if (dict[url]) {
+            urls.push(url);
+        }
+    }
+    return urls;
+}
+
 async function main() {
     ready = updateInput();
-    await ready;
-    blockAll();
+    ready.then(function() {
+        blockAll();
+        console.log("started");
+    });
 }
 
 
@@ -222,11 +235,12 @@ chrome.runtime.onInstalled.addListener(function(details){
         var thisVersion = chrome.runtime.getManifest().version;
         console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
     }
-    var list = [];
-    for (var urlp of defaultUrls) {
-        list.push(urlp[0]);
-    }
-    updateStorage(list);
+    chrome.storage.sync.get(["memoryUrls"], result => {
+        updateStorage([]);
+        var dict = result["memoryUrls"];
+        var urls = dictOfUrlsToList(dict);
+        updateStorage(urls);
+    });
 });
 
 
@@ -235,9 +249,9 @@ var rules;
 
 var defaultUrls = [["https://vk.com/dank_memes_ayylmao", "Dank memes"],
                    ["https://vk.com/borsch", "Борщ"],
-                ["https://vk.com/sortnlogn", "Сортируй"],
-                ["https://vk.com/oroom", "Чёткие приколы"],
-                ["https://vk.com/cringey", "Cringe"]];
+                   ["https://vk.com/sortnlogn", "Сортируй"],
+                   ["https://vk.com/oroom", "Чёткие приколы"],
+                   ["https://vk.com/cringey", "Cringe"]];
 
 chrome.runtime.onMessage.addListener(
     (request, sender, sendResponse) => {
@@ -282,10 +296,14 @@ chrome.runtime.onMessage.addListener(
 
 chrome.runtime.onConnect.addListener(function (externalPort) {
     externalPort.onDisconnect.addListener(function() {
-        var ignoreError = chrome.runtime.lastError;
+        chrome.storage.sync.get(["memoryUrls"], result => {
+            updateStorage([]);
+            var dict = result["memoryUrls"];
+            var urls = dictOfUrlsToList(dict);
+            updateStorage(urls);
+        });
     });
-})
 
-updateInput();
+})
 
 main();

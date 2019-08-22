@@ -9,20 +9,20 @@ function checkCB() {
         dict[rad.value] = rad.checked;
         console.log(rad.value, rad.checked);
     }
-    chrome.runtime.sendMessage({"request": "putURLS", "urls" : urls});
-    chrome.runtime.sendMessage({"request": "putURLS", "urls" : urls});
-    chrome.storage.sync.set({memoryUrls: dict}, function() {
+    // chrome.runtime.sendMessage({"request": "putURLS", "urls" : urls});
+    chrome.storage.sync.set({"memoryUrls": dict}, function() {
           console.log('remembered');
+          console.log(dict);
     });
+
 }
 
-function checkAll() {
+function uncheckAll() {
     var rads = document.getElementsByClassName('groups');
     for (rad of rads) {
-        rad.checked = true;
+        rad.checked = false;
     }
 }
-
 
 function insertUrl(url, name, sp) {
     var elem = document.createElement('label');
@@ -50,7 +50,6 @@ async function loadMy(urls) {
 
 function loadDefault(urls) {
     for (var i = 0; i < urls.length; ++i) {
-       console.log(urls[i][0], urls[i][1]);
        insertUrl(urls[i][0], urls[i][1], false);
     }
 }
@@ -134,12 +133,10 @@ function clearUrls() {
     chrome.storage.sync.set({memoryUrls: {}}, function() {
           console.log('ticks clear');
     });
-    checkAll();
+    uncheckAll();
     checkCB();
 }
 
-
-// document.getElementById('files').addEventListener('change', handleFileSelect, false);
 var port = chrome.runtime.connect()
 window.onload = async function () {
     function updateLabel() {
@@ -158,7 +155,7 @@ window.onload = async function () {
         await loadMy(myUrls);
     await putChecks();
     updateLabel();
-    document.getElementById('apply_button').onclick = checkCB;
-    document.getElementById('add_new_but').onclick = saveUrl;
-    document.getElementById('clear').onclick = clearUrls;   
+    document.getElementById('add_button').onclick = saveUrl;
+    document.getElementById('clear').onclick = clearUrls;
+    document.getElementById("groupList").onchange = checkCB;
 }
