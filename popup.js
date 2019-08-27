@@ -14,7 +14,6 @@ function checkCB() {
           console.log('remembered');
           console.log(dict);
     });
-
 }
 
 function uncheckAll() {

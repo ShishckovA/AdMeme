@@ -1,7 +1,3 @@
-async function getFile(file) {
-    var resp = await fetch(file);
-    return resp.text();
-}
 var enabled = true;
 var rules;
 var ready;
@@ -126,71 +122,25 @@ function blockAll() {
 }
 
 async function updateInput() {
-    var text = await getFile("https://easylist-downloads.adblockplus.org/ruadlist+easylist.txt");
+    var unEnded = await fetch("https://easylist-downloads.adblockplus.org/ruadlist+easylist.txt")
+    var text = await unEnded.text();
     rules = getParsedData(text);
-}
-
-function writeToStorage(files) {
-    chrome.storage.local.set({"files" : files});
-}
-
-function getUrls(id, token) {
-    var url = "https://api.vk.com/method/wall.get?owner_id=-" + id + "&access_token=" + token + "&v=5.101";
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, false);
-    xhr.send();
-    var d = JSON.parse(xhr.responseText);
-    var ans = [];
-    if (!("response" in d)) {
-        var dfsdf = false;
-    }
-    for (var i = 0; i < d['response']['items'].length; ++i) {
-        var itm = d['response']['items'][i];
-        if  (!itm['marked_as_ads'] && itm['post_type'] == 'post' && "attachments" in itm) {
-            if (itm['attachments'][0]['type'] == 'photo') {
-                var arrSizes = itm['attachments'][0]['photo']['sizes'];
-                ans.push(itm['attachments'][0]['photo']['sizes'][arrSizes.length - 1]['url']);
-            }
-        }
-    }
-    return ans;
-}
-
-function getIdByUrl(url, token) {
-    var ind = url.indexOf("vk.com");
-    if (ind == -1) return 0;
-    url = url.slice(ind + 7);
-    if (url.indexOf("public") == 0) {
-        return url.slice(6);
-    }
-    var name = url;
-    var req = "https://api.vk.com/method/utils.resolveScreenName?screen_name=" + name + "&access_token=" + token + "&v=5.101";
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", req, false);
-    xhr.send();
-    var d = JSON.parse(xhr.responseText);
-    console.log(d['response']['object_id']);
-    return d['response']['object_id'];
-}
-
-function getUrlsByUrl(url, token) {
-    return getUrls(getIdByUrl(url, token), token);
 }
 
 async function updateStorage(urls) {
     var toStUrls = [];
     for (var url of urls) {
         var strUrl = "http://universum.pythonanywhere.com/api/getImages?url=" + url;
-        console.log("strUrl", strUrl);
-        var req = (await fetch(strUrl));
+        var req = await fetch(strUrl);
         var currentGroupUrls = (await req.json()).response;
         for (currentGroupUrl of currentGroupUrls) {
             toStUrls.push(currentGroupUrl);
         }
         await sleeper(1000);
-        console.log(currentGroupUrl);
+        console.log(url);
     }
-    writeToStorage(toStUrls);
+    console.log(toStUrls);
+
 }
 
 function getFromStorage(key) {
@@ -202,11 +152,10 @@ function getFromStorage(key) {
 }
 
 function putToStorage(key, data) {
-    return new Promise((resolve, reject) => {
-        chrome.storage.local.set({key : data}, function(result) {
-            resolve(result);
-        });
-    })
+    console.log(key, data);
+    obj = new Object();
+    obj[key] = data;
+    chrome.storage.local.set(obj);
 }
 
 function dictOfUrlsToList(dict) {
@@ -228,10 +177,12 @@ async function main() {
 }
 
 
-chrome.runtime.onInstalled.addListener(function(details){
+chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "install") {
         console.log("This is a first install!");
-    } else if (details.reason == "update") {
+
+    } 
+    else if (details.reason == "update") {
         var thisVersion = chrome.runtime.getManifest().version;
         console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
     }
